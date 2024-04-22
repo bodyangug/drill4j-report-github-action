@@ -1,5 +1,5 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'drill4j-report-github-action'
+description: 'Hello World'
 inputs:
   who-to-greet:
     description: 'Hello World PR comment'
