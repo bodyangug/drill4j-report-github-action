@@ -1,12 +1,11 @@
-FROM openjdk:8-alpine
+FROM amazoncorretto:8
 
-RUN apk upgrade --update && \
-	apk add bash curl
+RUN yum update -y
+COPY . .
 
-COPY executeMakePrComments /executeMakePrComments
-RUN chmod +x /executeMakePrComments
+RUN chmod +x gradlew
+RUN ./gradlew clean build
+COPY ../build/libs/*.jar /app.jar
+RUN chmod +x ./app.jar
 
-COPY docker/run-scripts.sh /run-scripts.sh
-RUN chmod +x /run-scripts.sh
-
-ENTRYPOINT /bin/bash /run-scripts.sh
+ENTRYPOINT java -jar app.jar $GITHUB_EVENT_PATH $1

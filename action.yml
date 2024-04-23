@@ -1,5 +1,6 @@
 name: 'drill4j-report-github-action'
 description: 'Hello World'
+
 inputs:
   who-to-greet:
     description: 'Hello World PR comment'

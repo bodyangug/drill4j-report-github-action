@@ -1,3 +1,5 @@
+package com.epam.drill.github.action.logger
+
 fun debug(message: String) {
     println("::debug::$message")
 }
