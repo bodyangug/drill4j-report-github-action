@@ -1,7 +1,7 @@
 FROM amazoncorretto:8
 
 RUN yum update -y
-COPY docker .
+COPY . .
 
 RUN chmod +x gradlew
 RUN ./gradlew clean build
