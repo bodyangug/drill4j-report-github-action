@@ -5,6 +5,7 @@ COPY . .
 
 RUN chmod +x gradlew
 RUN ./gradlew clean build
+RUN ls
 COPY ./build/libs/*.jar /app.jar
 RUN chmod +x ./app.jar
 
