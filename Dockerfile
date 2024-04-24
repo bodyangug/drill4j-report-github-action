@@ -9,5 +9,6 @@ RUN ./gradlew clean build
 RUN chmod +x build/libs/app.jar
 RUN cp ./build/libs/app.jar /app.jar
 RUN chmod +x /app.jar
+RUN ls
 
 ENTRYPOINT java -jar ./app.jar $GITHUB_EVENT_PATH $1
