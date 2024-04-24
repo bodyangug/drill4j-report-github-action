@@ -28,7 +28,7 @@ class CommonPrCommentService : PrCommentService {
             val event = createGithubEvent(System.getenv("GITHUB_EVENT_PATH"), moshi)
             //Send message to pr
             val comments = listOf(GithubPrComment("Hello world", event.pull_request.head.sha))
-            val token = System.getenv("GITHUB_TOKEN")
+            val token = System.getenv("INPUT_REPO-TOKEN")
             makeComments(comments, token, event, retrofit)
 
             EXIT_CODE_SUCCESS

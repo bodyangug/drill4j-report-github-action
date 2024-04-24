@@ -7,9 +7,7 @@ import kotlin.system.exitProcess
 
 
 fun main() {
-    val whoToGreet = System.getenv("INPUT_WHO-TO-GREET") ?: "empty-who-to-greet"
     val commentService = CommonPrCommentService()
-    println("whoToGreet = $whoToGreet")
     val result = commentService.makePrComments(HttpUrl.get(URL_GITHUB))
     if (result != 0) {
         exitProcess(result)
