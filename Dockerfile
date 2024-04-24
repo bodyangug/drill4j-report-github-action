@@ -11,4 +11,4 @@ RUN cp ./build/libs/app.jar /app.jar
 RUN chmod +x /app.jar
 RUN ls
 
-ENTRYPOINT sh -c "ls build -la && java -jar ./app.jar $GITHUB_EVENT_PATH $1"
+ENTRYPOINT sh -c "ls build/libs -la && java -jar ./app.jar $GITHUB_EVENT_PATH $1"
