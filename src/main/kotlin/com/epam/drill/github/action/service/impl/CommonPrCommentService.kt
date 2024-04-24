@@ -19,20 +19,16 @@ import java.io.File
 class CommonPrCommentService : PrCommentService {
 
     override fun makePrComments(
-        args: Array<String>,
         httpUrl: HttpUrl,
     ): Int {
-        debug("fun makePrComments: args=${args[ARGS_INDEX_EVENT_FILE_PATH]}")
-
         val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
         val retrofit =
             Retrofit.Builder().baseUrl(httpUrl).addConverterFactory(MoshiConverterFactory.create(moshi)).build()
-
         return try {
-            val event = createGithubEvent(args[ARGS_INDEX_EVENT_FILE_PATH], moshi)
+            val event = createGithubEvent(System.getenv("GITHUB_EVENT_PATH"), moshi)
             //Send message to pr
             val comments = listOf(GithubPrComment("Hello world", event.pull_request.head.sha))
-            val token = args[ARGS_INDEX_TOKEN]
+            val token = System.getenv("GITHUB_TOKEN")
             makeComments(comments, token, event, retrofit)
 
             EXIT_CODE_SUCCESS

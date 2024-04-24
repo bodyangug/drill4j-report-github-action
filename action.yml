@@ -5,9 +5,12 @@ inputs:
   who-to-greet:
     description: 'Hello World PR comment'
     required: true
-    default: 'World'
+  repo-token:
+    description: 'Github Token'
+    required: true
 runs:
   using: 'docker'
   image: './Dockerfile'
   args:
     - ${{ inputs.who-to-greet }}
+    - ${{ inputs.repo-token }}
