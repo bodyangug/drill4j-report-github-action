@@ -5,8 +5,6 @@ import com.epam.drill.github.action.entity.GithubPrComment
 import com.epam.drill.github.action.logger.debug
 import com.epam.drill.github.action.service.GithubPrCommentsService
 import com.epam.drill.github.action.service.PrCommentService
-import com.epam.drill.github.action.utils.ARGS_INDEX_EVENT_FILE_PATH
-import com.epam.drill.github.action.utils.ARGS_INDEX_TOKEN
 import com.epam.drill.github.action.utils.EXIT_CODE_FAILURE
 import com.epam.drill.github.action.utils.EXIT_CODE_SUCCESS
 import com.squareup.moshi.Moshi
@@ -27,6 +25,7 @@ class CommonPrCommentService : PrCommentService {
         return try {
             val event = createGithubEvent(System.getenv("GITHUB_EVENT_PATH"), moshi)
             //Send message to pr
+            println("Create message")
             val comments = listOf(GithubPrComment("Hello world", event.pull_request.head.sha))
             val token = System.getenv("INPUT_REPO-TOKEN")
             makeComments(comments, token, event, retrofit)
@@ -46,6 +45,12 @@ class CommonPrCommentService : PrCommentService {
 
         val githubPrCommentsService = retrofit.create(GithubPrCommentsService::class.java)
         comments.forEach { comment ->
+            println("Send comment with params:")
+            println("token: $token")
+            println("user.login: ${event.pull_request.user.login}")
+            println("repo.name: ${event.repository.name}")
+            println("pr number: ${event.pull_request.number}")
+            println("comment: $comment")
             githubPrCommentsService.createComment(
                 "token $token", event.pull_request.user.login, event.repository.name, event.pull_request.number, comment
             ).execute()
