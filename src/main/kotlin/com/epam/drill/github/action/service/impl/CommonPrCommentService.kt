@@ -1,7 +1,6 @@
 package com.epam.drill.github.action.service.impl
 
 import com.epam.drill.github.action.entity.GithubEvent
-import com.epam.drill.github.action.entity.GithubPrComment
 import com.epam.drill.github.action.logger.debug
 import com.epam.drill.github.action.service.GithubPrCommentsService
 import com.epam.drill.github.action.service.PrCommentService
@@ -26,7 +25,7 @@ class CommonPrCommentService : PrCommentService {
             val event = createGithubEvent(System.getenv("GITHUB_EVENT_PATH"), moshi)
             //Send message to pr
             println("Create message")
-            val comments = listOf(GithubPrComment("Hello world", event.pull_request.head.sha))
+            val comments = listOf("Hello from Github Action")
             val token = System.getenv("INPUT_REPO-TOKEN")
             makeComments(comments, token, event, retrofit)
 
@@ -39,7 +38,7 @@ class CommonPrCommentService : PrCommentService {
     }
 
     private fun makeComments(
-        comments: List<GithubPrComment>, token: String, event: GithubEvent, retrofit: Retrofit
+        comments: List<String>, token: String, event: GithubEvent, retrofit: Retrofit
     ) {
         debug("fun makeComments: comments=$comments|event=$event")
 
@@ -51,9 +50,16 @@ class CommonPrCommentService : PrCommentService {
             println("repo.name: ${event.repository.name}")
             println("pr number: ${event.pull_request.number}")
             println("comment: $comment")
-            githubPrCommentsService.createComment(
-                "token $token", event.pull_request.user.login, event.repository.name, event.pull_request.number, comment
+            val execute = githubPrCommentsService.createComment(
+                token = "token $token",
+                owner = event.pull_request.user.login,
+                repo = event.repository.name,
+                number = event.pull_request.number,
+                body = comment
             ).execute()
+            execute.let {
+                println("Response code: ${it.code()} body: ${it.body()}")
+            }
         }
     }
 
