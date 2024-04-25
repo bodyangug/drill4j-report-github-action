@@ -1,10 +1,7 @@
 package com.epam.drill.github.action.service
 
-import com.epam.drill.github.action.utils.URL_GITHUB
-import okhttp3.HttpUrl
+import com.epam.drill.github.action.entity.GithubEvent
 
 interface PrCommentService {
-    fun makePrComments(
-        httpUrl: HttpUrl = HttpUrl.get(URL_GITHUB),
-    ): Int
+    fun sendComment(comment: String, token: String, event: GithubEvent)
 }
