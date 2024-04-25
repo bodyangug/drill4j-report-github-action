@@ -55,7 +55,7 @@ class CommonPrCommentService : PrCommentService {
                 owner = event.pull_request.user.login,
                 repo = event.repository.name,
                 number = event.pull_request.number,
-                body = comment
+                body = "{\"body\": $comment}"
             ).execute()
             execute.let {
                 println("Response code: ${it.code()} body: ${it.body()}")
@@ -66,8 +66,6 @@ class CommonPrCommentService : PrCommentService {
     private fun createGithubEvent(
         eventFilePath: String, moshi: Moshi
     ): GithubEvent {
-        debug("fun createGithubEvent: $eventFilePath")
-
         val json = File(eventFilePath).readText()
         return moshi.adapter(GithubEvent::class.java).fromJson(json)
             ?: throw Exception("Could not create json from file: $eventFilePath")
