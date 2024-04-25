@@ -58,7 +58,9 @@ class CommonPrCommentService : PrCommentService {
                 body = "{\"body\": $comment}"
             ).execute()
             execute.let {
-                println("Response code: ${it.code()} body: ${it.body()}")
+                println("Response code: ${it.code()}")
+                println("rawResponse: ${it.raw()}")
+                println("ErrorBody: ${it.errorBody()}")
             }
         }
     }
