@@ -1,6 +1,8 @@
 name: 'drill4j-report-github-action'
-description: 'Hello World'
-
+description: 'Report test-coverage by Drill4J'
+branding:
+  icon: info
+  color: blue
 inputs:
   who-to-greet:
     description: 'Hello World PR comment'
