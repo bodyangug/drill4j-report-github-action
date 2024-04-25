@@ -1,8 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.net.URI
 
 plugins {
     application
     kotlin("jvm")
+    id("com.github.hierynomus.license")
 }
 
 group = "com.epam.drill"
@@ -49,4 +51,9 @@ dependencies {
     //Logging:
     implementation("io.github.microutils:kotlin-logging-jvm:2.0.11")
     implementation("ch.qos.logback:logback-classic:1.2.6")
+}
+
+license {
+    headerURI = URI("https://raw.githubusercontent.com/Drill4J/drill4j/develop/COPYRIGHT")
+    include("**/*.kt")
 }
