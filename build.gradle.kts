@@ -14,7 +14,7 @@ repositories {
 }
 
 application {
-    mainClass.set("com.epam.drill.github.action.ExecuteMakePrCommentsKt")
+    mainClass.set("com.epam.drill.github.action.GitHubActionKt")
 }
 
 tasks {
@@ -25,7 +25,7 @@ tasks {
         from(sourceSets.main.get().output)
         dependsOn(configurations.runtimeClasspath)
         manifest {
-            attributes("Main-Class" to "com.epam.drill.github.action.ExecuteMakePrCommentsKt")
+            attributes("Main-Class" to "com.epam.drill.github.action.GitHubActionKt")
         }
         from({
             configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
