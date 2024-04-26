@@ -1,6 +1,7 @@
 # Drill4J Report GitHub Action
 
 ## Project Overview
+
 This GitHub Action is used to generate a report on the percentage of application coverage per commit in a GitHub pull
 request.
 
@@ -17,15 +18,15 @@ To use this action, follow these steps:
 ```yml 
   - uses: bodyangug/drill4j-report-github-action@v0.2
     with:
-       groupId: "groupId"
-       agentId: "agentId"
-       currentBranch: "feature/foo-boo"
-       currentVcsRef: "currentVcsRef"
-       baseBranch: "main"
-       baseVcsRef: "baseVscRef"
-       drillHost: "localhost"
-       drillPort: 8080
-       repoToken: ${{ secrets.TOKEN }}
+      groupId: "groupId"
+      agentId: "agentId"
+      currentBranch: $GITHUB_REF
+      currentVcsRef: $GITHUB_REF_NAME
+      baseBranch: $GITHUB_BASE_REF
+      baseVcsRef: $GITHUB_BASE_REF
+      drillHost: "localhost"
+      drillPort: 8080
+      repoToken: ${{ secrets.TOKEN }}
 ```
 
 In the above code, `secrets.TOKEN` is the token you created in the previous steps.
