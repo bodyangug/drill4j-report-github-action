@@ -4,15 +4,33 @@ branding:
   icon: info
   color: blue
 inputs:
-  who-to-greet:
-    description: 'Hello World PR comment'
+  groupId:
+    description: "Group ID"
     required: true
-  repo-token:
-    description: 'Github Token'
+  agentId:
+    description: "Agent ID"
+    required: true
+  currentBranch:
+    description: "Current branch"
+    required: true
+  currentVcsRef:
+    description: "Current VCS reference"
+    required: true
+  baseBranch:
+    description: "Base branch"
+    required: true
+  baseVcsRef:
+    description: "Base VCS reference"
+    required: true
+  drillHost:
+    description: "Host of Drill admin"
+    required: true
+  drillPort:
+    description: "Port of Drill admin"
+    required: true
+  repoToken:
+    description: "Github Token"
     required: true
 runs:
   using: 'docker'
   image: './Dockerfile'
-  args:
-    - ${{ inputs.who-to-greet }}
-    - ${{ inputs.repo-token }}

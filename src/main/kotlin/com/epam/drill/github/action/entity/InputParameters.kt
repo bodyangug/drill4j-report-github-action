@@ -15,22 +15,13 @@
  */
 package com.epam.drill.github.action.entity
 
-data class GithubUser(val login: String)
-data class GithubRepository(val name: String)
-data class GithubPullRequestHead(val sha: String)
-data class GithubPullRequest(
-    val number: Int,
-    val user: GithubUser,
-    val head: GithubPullRequestHead
-)
-
-data class GithubEvent(
-    val pull_request: GithubPullRequest,
-    val repository: GithubRepository
-)
-
-data class RequestBody(val body: String)
-
-data class SummaryResponse(val coverage: String = "", val risks: String = "")
-data class CoverageResponse(val coverage: String = "")
-
+val groupId: String = System.getenv("INPUT_GROUP-ID")
+val agentId: String = System.getenv("INPUT_AGENT-ID")
+val currentVcsRef: String = System.getenv("INPUT_CURRENT-VCS-REF")
+val currentBranch: String = System.getenv("INPUT_CURRENT-BRANCH")
+val baseBranch: String = System.getenv("INPUT_BASE-BRANCH")
+val baseVcsRef: String = System.getenv("INPUT_BASE-VCS-REF")
+val eventFilePath: String = System.getenv("GITHUB_EVENT_PATH")
+val repoToken: String = System.getenv("INPUT_REPO-TOKEN")
+val drillHost: String = System.getenv("INPUT_DRILL-HOST")
+val drillPort: String = System.getenv("INPUT_DRILL-PORT")

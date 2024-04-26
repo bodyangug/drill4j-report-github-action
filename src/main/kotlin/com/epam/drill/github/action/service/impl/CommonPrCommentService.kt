@@ -17,28 +17,39 @@ package com.epam.drill.github.action.service.impl
 
 import com.epam.drill.github.action.entity.GithubEvent
 import com.epam.drill.github.action.entity.RequestBody
-import com.epam.drill.github.action.service.GithubPrCommentsService
+import com.epam.drill.github.action.entity.eventFilePath
+import com.epam.drill.github.action.entity.repoToken
+import com.epam.drill.github.action.moshi
+import com.epam.drill.github.action.controllers.GithubPrCommentsService
 import com.epam.drill.github.action.service.PrCommentService
 import mu.KotlinLogging
 import retrofit2.Retrofit
+import java.io.File
 
-class CommonPrCommentService(private val retrofit: Retrofit) : PrCommentService {
+class CommonPrCommentService(retrofit: Retrofit) : PrCommentService {
     private val logger = KotlinLogging.logger {}
+    private val commentService = retrofit.create(GithubPrCommentsService::class.java)
 
     override fun sendComment(
-        comment: String, token: String, event: GithubEvent
+        comment: String
     ) {
         logger.info { "Start sending PR comment." }
         logger.debug { "Comment '$comment'." }
-        retrofit.create(GithubPrCommentsService::class.java)
-            .createComment(
-                token = "token $token",
-                owner = event.pull_request.user.login,
-                repo = event.repository.name,
-                issueNumber = event.pull_request.number,
-                body = RequestBody(body = comment)
-            ).execute()
+        val event = createGithubEvent()
+        commentService.createComment(
+            token = "token $repoToken",
+            owner = event.pull_request.user.login,
+            repo = event.repository.name,
+            issueNumber = event.pull_request.number,
+            body = RequestBody(body = comment)
+        ).execute()
+
         logger.info { "Finish sending PR comment." }
     }
 
+    private fun createGithubEvent(): GithubEvent {
+        logger.info { "Creating Github Event file." }
+        return moshi.adapter(GithubEvent::class.java).fromJson(File(eventFilePath).readText())
+            ?: throw Exception("Could not create json from file: $eventFilePath")
+    }
 }
