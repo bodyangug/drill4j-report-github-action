@@ -15,10 +15,17 @@ To use this action, follow these steps:
 1. Add the following lines to your GitHub workflow after the build:
 
 ```yml 
-  - uses: bodyangug/drill4j-report-github-action@v0.33
+  - uses: bodyangug/drill4j-report-github-action@v0.2
     with:
-      who-to-greet: 'Mona the Octocat'
-      repo-token: ${{ secrets.TOKEN }}
+       groupId: "groupId"
+       agentId: "agentId"
+       currentBranch: "feature/foo-boo"
+       currentVcsRef: "currentVcsRef"
+       baseBranch: "main"
+       baseVcsRef: "baseVscRef"
+       drillHost: "localhost"
+       drillPort: 8080
+       repoToken: ${{ secrets.TOKEN }}
 ```
 
 In the above code, `secrets.TOKEN` is the token you created in the previous steps.
