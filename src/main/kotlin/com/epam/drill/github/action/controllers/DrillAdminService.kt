@@ -31,7 +31,7 @@ interface DrillAdminService {
         @Query("currentVcsRef") currentVcsRef: String
     ): Call<CoverageResponse>
 
-    @GET("/api/metrics//risks")
+    @GET("/api/metrics/risks")
     fun getRisks(
         @Query("groupId") groupId: String,
         @Query("agentId") agentId: String,
@@ -41,7 +41,7 @@ interface DrillAdminService {
         @Query("baseVcsRef") baseVcsRef: String
     ): Call<List<String>>
 
-    @GET("/api/metrics//summary")
+    @GET("/api/metrics/summary")
     fun getSummary(
         @Query("groupId") groupId: String,
         @Query("agentId") agentId: String,
