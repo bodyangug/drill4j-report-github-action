@@ -15,8 +15,7 @@
  */
 package com.epam.drill.github.action
 
-import com.epam.drill.github.action.entity.drillHost
-import com.epam.drill.github.action.entity.drillPort
+import com.epam.drill.github.action.entity.drillAddress
 import com.epam.drill.github.action.service.impl.CommonPrCommentService
 import com.epam.drill.github.action.service.impl.CommonStatisticService
 import mu.KotlinLogging
@@ -33,7 +32,7 @@ class MainFacade {
             .build()
     private val retrofitDrill =
         Retrofit.Builder()
-            .baseUrl(HttpUrl.get("http://$drillHost:$drillPort"))
+            .baseUrl(HttpUrl.get(drillAddress))
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     private val statisticService = CommonStatisticService(retrofitDrill)

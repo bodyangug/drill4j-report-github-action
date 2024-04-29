@@ -4,31 +4,28 @@ branding:
   icon: info
   color: blue
 inputs:
-  groupId:
+  group-id:
     description: "Group ID"
     required: true
-  agentId:
+  agent-id:
     description: "Agent ID"
     required: true
-  currentBranch:
+  current-branch:
     description: "Current branch"
     required: true
-  currentVcsRef:
+  current-vcs-ref:
     description: "Current VCS reference"
     required: true
-  baseBranch:
+  base-branch:
     description: "Base branch"
     required: true
-  baseVcsRef:
+  base-vcs-ref:
     description: "Base VCS reference"
     required: true
-  drillHost:
-    description: "Host of Drill admin"
+  drill-address:
+    description: "Port of Drill address"
     required: true
-  drillPort:
-    description: "Port of Drill admin"
-    required: true
-  repoToken:
+  repo-token:
     description: "Github Token"
     required: true
 runs:
