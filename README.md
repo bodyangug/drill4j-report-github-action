@@ -16,16 +16,17 @@ To use this action, follow these steps:
 1. Add the following lines to your GitHub workflow after the build:
 
 ```yml 
-  - uses: bodyangug/drill4j-report-github-action@v0.3
-    with:
-      group-id: "groupId"
-      agent-id: "agentId"
-      current-branch: $GITHUB_REF
-      current-vcs-ref: $GITHUB_REF_NAME
-      base-branch: $GITHUB_BASE_REF
-      base-vcs-ref: $GITHUB_BASE_REF
-      drill-address: "http://localhost:8080"
-      repo-token: ${{ secrets.TOKEN }}
+   - name: Drill4J Github Action
+     uses: bodyangug/drill4j-report-github-action@v0.5
+     with:
+        group-id: ${{ matrix.config.drill-group-id }}
+        agent-id: ${{ matrix.config.drill-api-agent-id }}
+        drill-address: ${{ matrix.config.drill-admin-address }}
+        repo-token: ${{ secrets.TOKEN }}
+        current-branch: ${{ github.event.pull_request.head.ref }}
+        current-vcs-ref: ${{ github.event.pull_request.head.sha }}
+        base-branch: ${{ github.event.pull_request.base.ref }}
+        base-vcs-ref: ${{ github.event.pull_request.base.sha }}
 ```
 
 In the above code, `secrets.TOKEN` is the token you created in the previous steps.
