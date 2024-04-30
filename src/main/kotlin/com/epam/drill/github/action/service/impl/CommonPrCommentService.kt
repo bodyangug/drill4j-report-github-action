@@ -36,14 +36,15 @@ class CommonPrCommentService(retrofit: Retrofit) : PrCommentService {
         logger.info { "Start sending PR comment." }
         logger.debug { "Comment '$comment'." }
         val event = createGithubEvent()
-        commentService.createComment(
+        val execute = commentService.createComment(
             token = "token $repoToken",
             owner = event.repository.owner.login,
             repo = event.repository.name,
             issueNumber = event.pull_request.number,
             body = RequestBody(body = comment)
         ).execute()
-
+        logger.info { "Comment was sent. Status code: ${execute.code()}" }
+        logger.debug { "Response body: ${execute.body()?.string()}" }
         logger.info { "Finish sending PR comment." }
     }
 
