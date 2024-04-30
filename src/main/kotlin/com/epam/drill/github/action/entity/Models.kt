@@ -16,7 +16,7 @@
 package com.epam.drill.github.action.entity
 
 data class GithubUser(val login: String)
-data class GithubRepository(val name: String)
+data class GithubRepository(val name: String, val owner: GithubUser)
 data class GithubPullRequestHead(val sha: String)
 data class GithubPullRequest(
     val number: Int,

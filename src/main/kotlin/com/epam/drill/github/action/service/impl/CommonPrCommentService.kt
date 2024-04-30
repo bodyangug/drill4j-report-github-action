@@ -15,12 +15,12 @@
  */
 package com.epam.drill.github.action.service.impl
 
+import com.epam.drill.github.action.controllers.GithubPrCommentsService
 import com.epam.drill.github.action.entity.GithubEvent
 import com.epam.drill.github.action.entity.RequestBody
 import com.epam.drill.github.action.entity.eventFilePath
 import com.epam.drill.github.action.entity.repoToken
 import com.epam.drill.github.action.moshi
-import com.epam.drill.github.action.controllers.GithubPrCommentsService
 import com.epam.drill.github.action.service.PrCommentService
 import mu.KotlinLogging
 import retrofit2.Retrofit
@@ -38,7 +38,7 @@ class CommonPrCommentService(retrofit: Retrofit) : PrCommentService {
         val event = createGithubEvent()
         commentService.createComment(
             token = "token $repoToken",
-            owner = event.pull_request.user.login,
+            owner = event.repository.owner.login,
             repo = event.repository.name,
             issueNumber = event.pull_request.number,
             body = RequestBody(body = comment)

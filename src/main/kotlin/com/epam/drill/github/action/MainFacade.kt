@@ -56,7 +56,7 @@ class MainFacade {
             """.trimIndent()
 
             //3. Send comment to pr
-            println("Sending \n $comment")
+            logger.debug { "Sending \n $comment" }
             commentService.sendComment(comment)
         } catch (ex: Throwable) {
             val errorMessage = if (ex.message.isNullOrBlank()) "Unknown error: ${ex.javaClass.name}" else ex.message
